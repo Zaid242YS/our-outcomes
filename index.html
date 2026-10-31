@@ -1,0 +1,643 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Circle Ledger Compass | Creed-to-Commerce™</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gd:#1d3b2a; --g:#2f5d44; --gl:#dbe8df;
+  --bd:#3b2a1d; --b:#6b4a32; --bl:#eadfd0;
+  --gold:#c9a24b; --cream:#f6f0e4; --paper:#fffaf0; --ink:#2a211a; --mut:#7a6a5b;
+  --bad:#a8432f; --ok:#2f7a4f; --warn:#b9822a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Amiri,Georgia,"Times New Roman",serif;font-size:18px;line-height:1.45}
+header{background:linear-gradient(135deg,var(--gd),var(--bd));color:#fff;padding:18px 16px 0;border-bottom:4px solid var(--gold)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+.basmala{text-align:center;font-size:30px;color:var(--gold);direction:rtl;margin:0 0 4px}
+.brand{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between}
+h1{margin:0;font-size:30px;line-height:1.1}
+.tag{color:#e9dcc2;font-size:16px;margin:2px 0 12px}
+.hdr-tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding-bottom:12px}
+nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:thin}
+nav button{font:inherit;font-size:17px;background:transparent;color:#e9dcc2;border:0;padding:10px 14px;border-radius:10px 10px 0 0;cursor:pointer;white-space:nowrap}
+nav button:hover{background:rgba(255,255,255,.1)}
+nav button.on{background:var(--cream);color:var(--gd);font-weight:700}
+main{padding:20px 0 40px}
+section.tab{display:none}
+section.tab.on{display:block}
+.card{background:var(--paper);border:1px solid var(--bl);border-radius:14px;padding:16px;margin-bottom:16px;box-shadow:0 1px 3px rgba(59,42,29,.08)}
+.card h2{margin:0 0 4px;font-size:23px;color:var(--gd)}
+.card h3{margin:14px 0 6px;font-size:19px;color:var(--b)}
+.sub{color:var(--mut);font-size:16px;margin:0 0 12px}
+.grid{display:grid;gap:14px}
+.g4{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.kpi{border-left:6px solid var(--g);background:var(--paper);border-radius:12px;padding:12px 14px;border-top:1px solid var(--bl);border-right:1px solid var(--bl);border-bottom:1px solid var(--bl)}
+.kpi .l{font-size:15px;color:var(--mut)}
+.kpi .v{font-size:30px;font-weight:700;color:var(--gd);line-height:1.1}
+.kpi .n{font-size:15px;color:var(--mut)}
+.kpi.gold{border-left-color:var(--gold)} .kpi.brown{border-left-color:var(--b)} .kpi.bad{border-left-color:var(--bad)}
+.kpi.bad .v{color:var(--bad)}
+label{display:block;font-size:15px;color:var(--mut);margin-bottom:2px}
+input,select,textarea{font:inherit;font-size:17px;width:100%;padding:8px 10px;border:1px solid #cdbfa9;border-radius:9px;background:#fff;color:var(--ink)}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:3px solid var(--gold);outline-offset:1px}
+.row{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));align-items:end}
+button.btn{font:inherit;font-size:17px;background:var(--g);color:#fff;border:0;border-radius:10px;padding:9px 16px;cursor:pointer}
+button.btn:hover{background:var(--gd)}
+button.btn.gold{background:var(--gold);color:var(--bd);font-weight:700}
+button.btn.brown{background:var(--b)}
+button.btn.ghost{background:transparent;color:var(--g);border:1px solid var(--g)}
+button.btn.danger{background:var(--bad)}
+button.sm{padding:4px 10px;font-size:15px;border-radius:8px}
+.hdr-tools button.btn{background:rgba(255,255,255,.14)} .hdr-tools button.btn:hover{background:rgba(255,255,255,.28)}
+.hdr-tools select{width:auto;padding:5px 8px;font-size:16px}
+table{width:100%;border-collapse:collapse;font-size:16px}
+th{text-align:left;color:var(--b);border-bottom:2px solid var(--gold);padding:6px 6px}
+td{padding:6px;border-bottom:1px solid var(--bl);vertical-align:middle}
+.tw{overflow-x:auto}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.pill{display:inline-block;padding:1px 10px;border-radius:99px;font-size:14px;background:var(--gl);color:var(--gd)}
+.pill.bad{background:#f3d9d2;color:var(--bad)} .pill.warn{background:#f5e6c4;color:#7a5410} .pill.in{background:#e4efd9;color:#2f6a2f}
+.bar{height:14px;background:var(--bl);border-radius:8px;position:relative;overflow:hidden}
+.bar>i{display:block;height:100%;border-radius:8px;background:var(--g)}
+.bar>i.over{background:var(--bad)} .bar>i.near{background:var(--warn)}
+.catrow{display:grid;grid-template-columns:130px 1fr 150px;gap:10px;align-items:center;margin:8px 0}
+@media(max-width:560px){.catrow{grid-template-columns:1fr}}
+.score{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.ring{width:110px;height:110px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--g) calc(var(--p)*1%),var(--bl) 0)}
+.ring span{width:84px;height:84px;border-radius:50%;background:var(--paper);display:grid;place-items:center;font-size:30px;font-weight:700;color:var(--gd)}
+.pathway{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.pathway button{text-align:left;font:inherit;background:linear-gradient(135deg,var(--gd),var(--g));color:#fff;border:0;border-radius:12px;padding:14px;cursor:pointer;border-bottom:4px solid var(--gold)}
+.pathway button:nth-child(even){background:linear-gradient(135deg,var(--bd),var(--b))}
+.pathway button:hover{transform:translateY(-2px)}
+.pathway b{display:block;font-size:20px;color:var(--gold)} .pathway small{font-size:15px;color:#efe6d3}
+.alert{background:#fbf0d4;border:1px solid var(--gold);border-radius:10px;padding:10px 12px;margin:10px 0}
+.alert.bad{background:#f7dfd9;border-color:var(--bad)}
+.insight{border-left:5px solid var(--gold);padding:6px 12px;background:#fbf5e6;margin:6px 0;border-radius:0 8px 8px 0}
+.timer{font-size:44px;font-weight:700;color:var(--gd);font-variant-numeric:tabular-nums}
+.timer.over{color:var(--bad)}
+.rng{display:grid;grid-template-columns:130px 1fr 60px;gap:10px;align-items:center;margin:6px 0}
+.rng input{padding:0}
+.mini{display:flex;gap:6px;align-items:flex-end;height:120px;margin:8px 0}
+.mini .c{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:2px;height:100%}
+.mini .bars{display:flex;gap:3px;align-items:flex-end;height:100%;width:100%;justify-content:center}
+.mini .bars i{display:block;width:40%;max-width:26px;border-radius:4px 4px 0 0}
+.mini small{font-size:13px;color:var(--mut)}
+.legend{display:flex;gap:14px;font-size:14px;color:var(--mut);flex-wrap:wrap}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+footer{background:var(--bd);color:#e9dcc2;text-align:center;padding:18px 16px;border-top:4px solid var(--gold);font-size:16px}
+footer b{color:var(--gold)}
+.hint{font-size:15px;color:var(--mut)}
+.chk{display:flex;gap:8px;align-items:flex-start;margin:6px 0}
+.chk input{width:auto;margin-top:6px}
+.printonly{display:none}
+@media print{
+  header,nav,footer,.hdr-tools,.noprint,.pathway{display:none!important}
+  body{background:#fff;font-size:14px}
+  section.tab{display:none!important}
+  section#t-report{display:block!important}
+  .card{box-shadow:none;break-inside:avoid}
+  .printonly{display:block}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <p class="basmala" lang="ar">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+    <div class="brand">
+      <div>
+        <h1>Circle Ledger Compass</h1>
+        <p class="tag">One shared ledger. One measured outcome. One agreed next step. · The Balanced Middle Path Academy</p>
+      </div>
+      <div class="hdr-tools">
+        <select id="monthSel" aria-label="Month"></select>
+        <select id="curSel" aria-label="Currency"><option>RM</option><option>$</option><option>SAR</option><option>AED</option><option>EGP</option><option>£</option><option>€</option></select>
+        <button class="btn" id="btnSample">Load sample data</button>
+        <button class="btn" id="btnClear">Clear all data</button>
+      </div>
+    </div>
+    <nav id="nav" role="tablist">
+      <button data-t="dash" class="on">Dashboard</button>
+      <button data-t="ledger">Ledger</button>
+      <button data-t="budget">Budgets &amp; Goal</button>
+      <button data-t="plan">Plan Builder</button>
+      <button data-t="agenda">Meeting Agenda</button>
+      <button data-t="whatif">What-If</button>
+      <button data-t="report">Report (PDF)</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- DASHBOARD -->
+<section class="tab on" id="t-dash">
+  <div class="card">
+    <h2 id="dashTitle">Dashboard</h2>
+    <p class="sub">Every number below comes straight from the ledger. No opinions, only measurements. Use the pathways at the bottom to turn numbers into action.</p>
+    <div class="grid g4" id="kpis"></div>
+  </div>
+  <div class="grid g2">
+    <div class="card">
+      <h2>Circle Health Score</h2>
+      <p class="sub">50% savings vs goal + 50% categories inside budget.</p>
+      <div class="score" id="score"></div>
+      <div id="insights"></div>
+    </div>
+    <div class="card">
+      <h2>Six-Month Trend</h2>
+      <p class="sub">Income vs spending.</p>
+      <div class="legend"><span><i style="background:var(--g)"></i>Income</span><span><i style="background:var(--b)"></i>Spending</span></div>
+      <div class="mini" id="trend"></div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Spending vs Budget by Category</h2>
+    <p class="sub">Green = inside budget, amber = above 85%, red = over.</p>
+    <div id="cats"></div>
+  </div>
+  <div class="card">
+    <h2>Who Contributed &amp; Who Spent</h2>
+    <div class="tw"><table id="memTbl"></table></div>
+  </div>
+  <div class="card">
+    <h2>Pathways: what the numbers lead to</h2>
+    <p class="sub">The dashboard is the starting point. Choose the next step.</p>
+    <div class="pathway">
+      <button data-go="plan" data-act="gen"><b>1. Build the 30-Day Plan</b><small>Auto-creates measured actions from every gap on this dashboard.</small></button>
+      <button data-go="agenda" data-act="agenda"><b>2. Run an Outcome Meeting</b><small>Agenda locked to one measurable outcome, with a drift-redirect tool.</small></button>
+      <button data-go="whatif"><b>3. Test What-If Scenarios</b><small>Slide spending and income to see the projected result before committing.</small></button>
+      <button data-go="report"><b>4. Print the Circle Report</b><small>Branded PDF summary for the whole circle.</small></button>
+    </div>
+  </div>
+</section>
+
+<!-- LEDGER -->
+<section class="tab" id="t-ledger">
+  <div class="card">
+    <h2 id="formTitle">Add Entry</h2>
+    <p class="sub">Replace the chat messages and paper notebook: one entry per transaction.</p>
+    <form id="txForm" autocomplete="off">
+      <div class="row">
+        <div><label for="fDate">Date</label><input type="date" id="fDate" required></div>
+        <div><label for="fType">Type</label><select id="fType"><option value="out">Spending</option><option value="in">Income / contribution</option></select></div>
+        <div><label for="fMember">Member</label><select id="fMember"></select></div>
+        <div><label for="fCat">Category</label><select id="fCat"></select></div>
+        <div><label for="fAmt">Amount</label><input type="number" id="fAmt" min="0" step="0.01" required></div>
+        <div><label for="fNote">Note</label><input id="fNote" maxlength="80" placeholder="optional"></div>
+      </div>
+      <p style="margin:12px 0 0"><button class="btn" type="submit" id="fSave">Save entry</button> <button class="btn ghost" type="button" id="fCancel" style="display:none">Cancel edit</button></p>
+    </form>
+  </div>
+  <div class="card">
+    <h2>Entries for the selected month</h2>
+    <div class="tw"><table id="txTbl"></table></div>
+    <p class="hint">Edit or delete any entry at any time.</p>
+  </div>
+</section>
+
+<!-- BUDGET -->
+<section class="tab" id="t-budget">
+  <div class="grid g2">
+    <div class="card">
+      <h2>Monthly Budget per Category</h2>
+      <p class="sub">The circle agrees these numbers once, then the dashboard measures against them.</p>
+      <div id="budList"></div>
+    </div>
+    <div class="card">
+      <h2>Circle Goal &amp; Members</h2>
+      <label for="gRate">Target savings rate (% of income)</label>
+      <input type="number" id="gRate" min="0" max="90" step="1">
+      <label for="cName" style="margin-top:10px">Circle name</label>
+      <input id="cName" maxlength="40">
+      <h3>Members</h3>
+      <div id="memList"></div>
+      <div class="row" style="margin-top:8px"><input id="newMem" placeholder="New member name"><button class="btn" id="addMem" type="button">Add member</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- PLAN -->
+<section class="tab" id="t-plan">
+  <div class="card">
+    <h2>30-Day Plan Builder</h2>
+    <p class="sub">Each action has an owner, a deadline, a numeric target and an automatic progress check from the ledger. No more vague "we will try".</p>
+    <p class="noprint"><button class="btn gold" id="genPlan">Generate actions from dashboard gaps</button> <button class="btn ghost" id="addAct">Add manual action</button></p>
+    <div class="tw"><table id="planTbl"></table></div>
+  </div>
+</section>
+
+<!-- AGENDA -->
+<section class="tab" id="t-agenda">
+  <div class="grid g2">
+    <div class="card">
+      <h2>Outcome-First Agenda</h2>
+      <p class="sub">A meeting without a measurable outcome is a conversation. Fill in the outcome first.</p>
+      <label for="aOut">Meeting outcome (one sentence)</label>
+      <textarea id="aOut" rows="2" placeholder="By the end of this meeting we will decide how to bring Food spending to budget."></textarea>
+      <div class="row" style="margin-top:8px">
+        <div><label for="aMeasure">Measured by</label><input id="aMeasure" placeholder="e.g. 3 owner-assigned actions"></div>
+        <div><label for="aDate">Meeting date</label><input type="date" id="aDate"></div>
+      </div>
+      <h3>Time-boxed items</h3>
+      <div class="tw"><table id="aItems"></table></div>
+      <div class="row" style="margin-top:8px"><input id="aiT" placeholder="Agenda item"><input id="aiM" type="number" min="1" value="10" aria-label="Minutes"><button class="btn" id="aiAdd">Add item</button></div>
+      <p class="hint">Total planned: <b id="aTotal">0</b> min. Every item must serve the outcome above.</p>
+    </div>
+    <div>
+      <div class="card">
+        <h2>Meeting Timer</h2>
+        <div class="timer" id="tmr">00:00</div>
+        <p id="tmrItem" class="sub">Press start to begin the first item.</p>
+        <p class="noprint"><button class="btn" id="tStart">Start</button> <button class="btn ghost" id="tNext">Next item</button> <button class="btn ghost" id="tReset">Reset</button></p>
+        <div class="alert" id="driftBox" style="display:none"></div>
+        <p class="noprint"><button class="btn gold" id="drift">Drift alert: redirect to outcome</button> <span class="hint">Drifts logged: <b id="driftN">0</b></span></p>
+      </div>
+      <div class="card">
+        <h2>Parking Lot</h2>
+        <p class="sub">Off-topic ideas go here, not into the discussion.</p>
+        <div id="parkList"></div>
+        <div class="row"><input id="parkIn" placeholder="Park an idea"><button class="btn ghost" id="parkAdd">Park it</button></div>
+      </div>
+      <div class="card">
+        <h2>Decisions → Actions</h2>
+        <p class="sub">Every decision becomes an owned, dated action in the Plan.</p>
+        <div class="row">
+          <div><label for="dTxt">Decision / action</label><input id="dTxt"></div>
+          <div><label for="dOwn">Owner</label><select id="dOwn"></select></div>
+          <div><label for="dDue">Due</label><input type="date" id="dDue"></div>
+          <button class="btn" id="dAdd">Send to plan</button>
+        </div>
+        <p class="hint">Meeting closing check: was the outcome reached? <select id="aReached" style="width:auto;display:inline-block"><option value="">Select</option><option>Yes</option><option>Partly</option><option>No</option></select></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IF -->
+<section class="tab" id="t-whatif">
+  <div class="card">
+    <h2>What-If Simulator</h2>
+    <p class="sub">Starting point is the selected month's actual figures. Move the sliders, read the projected result, then send the scenario to the Plan.</p>
+    <div id="wiSliders"></div>
+    <div class="rng"><span>Income change</span><input type="range" id="wiInc" min="-30" max="50" value="0"><span id="wiIncV">0%</span></div>
+    <div class="grid g4" id="wiOut" style="margin-top:12px"></div>
+    <p class="noprint"><button class="btn gold" id="wiPlan">Send this scenario to the Plan</button> <button class="btn ghost" id="wiReset">Reset sliders</button></p>
+  </div>
+</section>
+
+<!-- REPORT -->
+<section class="tab" id="t-report">
+  <div class="card noprint">
+    <h2>Report &amp; Data</h2>
+    <p class="sub">Use your browser's print dialog and choose "Save as PDF".</p>
+    <button class="btn gold" id="print">Print / Save PDF</button>
+    <button class="btn ghost" id="expCSV">Export ledger (CSV)</button>
+    <button class="btn ghost" id="expJSON">Backup (JSON)</button>
+    <label class="btn ghost" style="display:inline-block;cursor:pointer;width:auto;margin:0">Restore backup<input type="file" id="impJSON" accept=".json" style="display:none"></label>
+  </div>
+  <div class="card" id="reportBody"></div>
+</section>
+
+</main>
+
+<footer>
+  <div lang="ar" style="font-size:22px;color:var(--gold);direction:rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+  <div><b>Creed-to-Commerce™</b> · The Balanced Middle Path Academy, LLC · Every business activity flows from, and stays accountable to, a creed.</div>
+  <div class="hint" style="color:#cdbfa9">Your data stays in this browser only. Back it up regularly from the Report tab.</div>
+</footer>
+
+<script>
+(function(){
+"use strict";
+const CATS=["Housing","Food","Transport","Education","Charity (Sadaqah)","Family","Utilities","Health","Savings","Other"];
+const COL=["#2f5d44","#6b4a32","#c9a24b","#4d7f62","#8c6a4a","#a88a3a","#1d3b2a","#9b7b5a","#7ba58b","#5a3e2b"];
+const KEY="clc_v1";
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const uid=()=>Math.random().toString(36).slice(2,9);
+const today=()=>new Date().toISOString().slice(0,10);
+const ymd=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0");
+function addDays(n){const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)}
+
+function blank(){return {cur:"RM",circle:"Our Circle",members:["Member 1"],tx:[],budgets:{},goal:20,plan:[],
+  agenda:{outcome:"",measure:"",date:today(),items:[],parking:[],drifts:0,reached:""},month:ymd(new Date())}}
+let S=load();
+function load(){try{const r=localStorage.getItem(KEY);if(r){return Object.assign(blank(),JSON.parse(r))}}catch(e){}return blank()}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function sample(){
+  const n=new Date(), m0=ymd(n), p=new Date(n.getFullYear(),n.getMonth()-1,1), m1=ymd(p), q=new Date(n.getFullYear(),n.getMonth()-2,1), m2=ymd(q);
+  S=blank();S.circle="Sample Study Circle";S.members=["Aisha","Yusuf","Maryam","Omar"];
+  S.budgets={"Housing":1500,"Food":700,"Transport":300,"Education":250,"Charity (Sadaqah)":200,"Family":250,"Utilities":220,"Health":120,"Savings":400,"Other":150};
+  S.goal=20;
+  const add=(m,d,t,mem,cat,a,note)=>S.tx.push({id:uid(),date:m+"-"+String(d).padStart(2,"0"),type:t,member:mem,cat,amt:a,note:note||""});
+  [[m2,0.92],[m1,0.97],[m0,1]].forEach(([m,k])=>{
+    add(m,1,"in","Aisha","Other",Math.round(2200*k),"Salary");
+    add(m,1,"in","Yusuf","Other",Math.round(1800*k),"Salary");
+    add(m,5,"in","Maryam","Other",Math.round(900*k),"Part-time");
+    add(m,5,"in","Omar","Other",Math.round(600*k),"Tutoring");
+    add(m,2,"out","Aisha","Housing",1500,"Rent share");
+    add(m,3,"out","Yusuf","Utilities",Math.round(205*(2-k)),"Electric, water, net");
+    add(m,6,"out","Maryam","Food",Math.round(210*(m===m0?1.45:1)),"Groceries wk1");
+    add(m,13,"out","Omar","Food",Math.round(190*(m===m0?1.5:1)),"Groceries wk2");
+    add(m,20,"out","Aisha","Food",Math.round(180*(m===m0?1.4:1)),"Dinner out");
+    add(m,8,"out","Yusuf","Transport",Math.round(260*(m===m0?1.2:1)),"Fuel and tolls");
+    add(m,10,"out","Maryam","Education",230,"Course fee");
+    add(m,12,"out","Omar","Charity (Sadaqah)",150,"Masjid fund");
+    add(m,15,"out","Aisha","Family",Math.round(240*(m===m0?1.3:1)),"Family support");
+    add(m,16,"out","Yusuf","Health",95,"Clinic");
+    add(m,18,"out","Maryam","Savings",350,"Emergency fund");
+    add(m,22,"out","Omar","Other",Math.round(130*(m===m0?1.6:1)),"Misc");
+  });
+  S.tx=S.tx.filter(t=>t.date<=today()||t.date.slice(0,7)<m0);
+  S.month=m0;
+}
+
+/* ---------- calculations ---------- */
+const money=v=>S.cur+" "+(Math.round(v*100)/100).toLocaleString(undefined,{minimumFractionDigits:0,maximumFractionDigits:2});
+const monthTx=(m=S.month)=>S.tx.filter(t=>t.date.slice(0,7)===m);
+function stats(m=S.month){
+  const tx=monthTx(m), inc=sum(tx.filter(t=>t.type==="in")), out=sum(tx.filter(t=>t.type==="out"));
+  const byCat={};CATS.forEach(c=>byCat[c]=0);tx.filter(t=>t.type==="out").forEach(t=>{byCat[t.cat]=(byCat[t.cat]||0)+t.amt});
+  const net=inc-out, rate=inc>0?net/inc*100:0;
+  const budgeted=CATS.filter(c=>S.budgets[c]>0), within=budgeted.filter(c=>byCat[c]<=S.budgets[c]).length;
+  const budTotal=budgeted.reduce((a,c)=>a+S.budgets[c],0);
+  let score=0;
+  if(tx.length){score=50*Math.min(1,Math.max(0,rate)/Math.max(1,S.goal))+(budgeted.length?50*within/budgeted.length:25)}
+  return {tx,inc,out,net,rate,byCat,budgeted,within,budTotal,score:Math.round(score)};
+}
+function sum(a){return a.reduce((s,t)=>s+(+t.amt||0),0)}
+function months(){const set=new Set(S.tx.map(t=>t.date.slice(0,7)));set.add(ymd(new Date()));set.add(S.month);return [...set].sort().reverse()}
+function mLabel(m){const [y,mo]=m.split("-");return new Date(+y,+mo-1,1).toLocaleDateString(undefined,{month:"long",year:"numeric"})}
+function gaps(st=stats()){
+  const g=[];
+  CATS.forEach(c=>{const b=S.budgets[c]||0,a=st.byCat[c];if(b>0&&a>b&&c!=="Savings")g.push({cat:c,budget:b,actual:a,over:a-b})});
+  g.sort((a,b)=>b.over-a.over);return g;
+}
+
+/* ---------- render ---------- */
+function render(){
+  save();
+  const sel=$("#monthSel");sel.innerHTML=months().map(m=>`<option value="${m}" ${m===S.month?"selected":""}>${mLabel(m)}</option>`).join("");
+  $("#curSel").value=S.cur;
+  $("#dashTitle").textContent=S.circle+" · "+mLabel(S.month);
+  const st=stats();
+  renderDash(st);renderLedger();renderBudget();renderPlan(st);renderAgenda(st);renderWhatIf(st);renderReport(st);
+}
+function kpi(l,v,n,cls){return `<div class="kpi ${cls||""}"><div class="l">${l}</div><div class="v">${v}</div><div class="n">${n||""}</div></div>`}
+function renderDash(st){
+  if(!S.tx.length){
+    $("#kpis").innerHTML=`<div class="alert" style="grid-column:1/-1">No entries yet. Add your first transaction in the <b>Ledger</b> tab, or press <b>Load sample data</b> to see how the dashboard works. Press <b>Clear all data</b> when you are ready to start fresh.</div>`;
+  }else{
+    const bu=st.budTotal?Math.round(st.out/st.budTotal*100):0;
+    $("#kpis").innerHTML=
+      kpi("Total income / contributions",money(st.inc),st.tx.filter(t=>t.type==="in").length+" entries")+
+      kpi("Total spending",money(st.out),st.budTotal?bu+"% of the "+money(st.budTotal)+" budget":"Set budgets to compare","brown")+
+      kpi("Net saved",money(st.net),st.net<0?"Spending exceeds income":"Money kept this month",st.net<0?"bad":"gold")+
+      kpi("Savings rate",st.rate.toFixed(1)+"%","Goal: "+S.goal+"%",st.rate>=S.goal?"":"bad")+
+      kpi("Categories inside budget",st.within+" / "+st.budgeted.length,"Measured against agreed limits");
+  }
+  const cls=st.score>=75?"ok":st.score>=50?"warn":"bad";
+  const msg=!st.tx.length?"Add entries to generate a score.":st.score>=75?"Strong month. Protect the habits that produced it.":st.score>=50?"Mixed month. Focus on the largest gap.":"Needs attention. Build the plan and call an outcome meeting.";
+  $("#score").innerHTML=`<div class="ring" style="--p:${st.score}"><span>${st.score}</span></div><div><span class="pill ${cls==="ok"?"in":cls}">${cls==="ok"?"On track":cls==="warn"?"Watch":"Act now"}</span><p style="margin:6px 0 0">${msg}</p></div>`;
+  const g=gaps(st), ins=[];
+  if(st.tx.length){
+    if(g[0])ins.push(`Largest gap: <b>${esc(g[0].cat)}</b> is ${money(g[0].over)} over budget.`);
+    if(st.rate<S.goal&&st.inc>0)ins.push(`To reach the ${S.goal}% goal the circle must save another <b>${money(st.inc*S.goal/100-st.net)}</b> per month.`);
+    const prev=stats(prevMonth());
+    if(prev.tx.length&&prev.out>0){const d=(st.out-prev.out)/prev.out*100;ins.push(`Spending is <b>${Math.abs(d).toFixed(1)}% ${d>=0?"higher":"lower"}</b> than the previous month.`)}
+    if(!g.length)ins.push("Every budgeted category is inside its limit.");
+  }
+  $("#insights").innerHTML=ins.map(i=>`<div class="insight">${i}</div>`).join("");
+  // trend
+  const ms=lastMonths(6), data=ms.map(m=>{const s=stats(m);return {m,inc:s.inc,out:s.out}}), mx=Math.max(1,...data.flatMap(d=>[d.inc,d.out]));
+  $("#trend").innerHTML=data.map(d=>`<div class="c"><div class="bars"><i style="background:var(--g);height:${d.inc/mx*100}%" title="Income ${money(d.inc)}"></i><i style="background:var(--b);height:${d.out/mx*100}%" title="Spending ${money(d.out)}"></i></div><small>${new Date(d.m+"-01T00:00").toLocaleDateString(undefined,{month:"short"})}</small></div>`).join("");
+  // categories
+  $("#cats").innerHTML=CATS.map((c,i)=>{
+    const a=st.byCat[c],b=S.budgets[c]||0;if(!a&&!b)return "";
+    const pct=b?a/b*100:(a?100:0),k=!b?"":pct>100?"over":pct>85?"near":"";
+    return `<div class="catrow"><span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:${COL[i]};margin-right:6px"></i>${esc(c)}</span><div class="bar" title="${Math.round(pct)}%"><i class="${k}" style="width:${Math.min(100,pct)}%"></i></div><span class="num">${money(a)}${b?" / "+money(b):" (no budget)"}</span></div>`;
+  }).join("")||'<p class="hint">Nothing to show yet.</p>';
+  // members
+  const rows=S.members.map(m=>{const t=st.tx.filter(x=>x.member===m);const i=sum(t.filter(x=>x.type==="in")),o=sum(t.filter(x=>x.type==="out"));return `<tr><td>${esc(m)}</td><td class="num">${money(i)}</td><td class="num">${money(o)}</td><td class="num">${money(i-o)}</td><td class="num">${t.length}</td></tr>`}).join("");
+  $("#memTbl").innerHTML=`<tr><th>Member</th><th class="num">Contributed</th><th class="num">Spent</th><th class="num">Net</th><th class="num">Entries</th></tr>${rows}`;
+}
+function prevMonth(m=S.month){const [y,mo]=m.split("-").map(Number);return ymd(new Date(y,mo-2,1))}
+function lastMonths(n){const [y,mo]=S.month.split("-").map(Number);const a=[];for(let i=n-1;i>=0;i--)a.push(ymd(new Date(y,mo-1-i,1)));return a}
+
+/* ---------- ledger ---------- */
+let editId=null;
+function fillSelects(){
+  const opt=(a,v)=>a.map(x=>`<option ${x===v?"selected":""}>${esc(x)}</option>`).join("");
+  const mv=$("#fMember").value,cv=$("#fCat").value,ov=$("#dOwn").value;
+  $("#fMember").innerHTML=opt(S.members,mv);$("#fCat").innerHTML=opt(CATS,cv);$("#dOwn").innerHTML=opt(S.members,ov);
+}
+function renderLedger(){
+  fillSelects();
+  if(!$("#fDate").value)$("#fDate").value=today();
+  const tx=[...monthTx()].sort((a,b)=>b.date.localeCompare(a.date));
+  $("#txTbl").innerHTML=`<tr><th>Date</th><th>Member</th><th>Category</th><th>Note</th><th class="num">Amount</th><th></th></tr>`+
+    (tx.map(t=>`<tr><td>${t.date}</td><td>${esc(t.member)}</td><td>${esc(t.cat)}</td><td>${esc(t.note)}</td><td class="num"><span class="pill ${t.type==="in"?"in":""}">${t.type==="in"?"+":"−"}</span> ${money(t.amt)}</td><td class="num noprint"><button class="btn sm ghost" data-ed="${t.id}">Edit</button> <button class="btn sm danger" data-del="${t.id}">Delete</button></td></tr>`).join("")||`<tr><td colspan="6" class="hint">No entries in this month.</td></tr>`);
+}
+$("#txForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const o={date:$("#fDate").value,type:$("#fType").value,member:$("#fMember").value,cat:$("#fCat").value,amt:Math.abs(parseFloat($("#fAmt").value)),note:$("#fNote").value.trim()};
+  if(!o.date||!(o.amt>=0))return;
+  if(editId){const i=S.tx.findIndex(t=>t.id===editId);if(i>-1)S.tx[i]=Object.assign({id:editId},o)}else S.tx.push(Object.assign({id:uid()},o));
+  S.month=o.date.slice(0,7);cancelEdit();render();
+});
+function cancelEdit(){editId=null;$("#txForm").reset();$("#fDate").value=today();$("#formTitle").textContent="Add Entry";$("#fSave").textContent="Save entry";$("#fCancel").style.display="none"}
+$("#fCancel").onclick=cancelEdit;
+$("#txTbl").addEventListener("click",e=>{
+  const ed=e.target.dataset.ed,dl=e.target.dataset.del;
+  if(ed){const t=S.tx.find(x=>x.id===ed);if(!t)return;editId=ed;$("#fDate").value=t.date;$("#fType").value=t.type;$("#fMember").value=t.member;$("#fCat").value=t.cat;$("#fAmt").value=t.amt;$("#fNote").value=t.note;$("#formTitle").textContent="Edit Entry";$("#fSave").textContent="Update entry";$("#fCancel").style.display="";window.scrollTo({top:0,behavior:"smooth"})}
+  if(dl&&confirm("Delete this entry?")){S.tx=S.tx.filter(x=>x.id!==dl);render()}
+});
+
+/* ---------- budgets ---------- */
+function renderBudget(){
+  $("#budList").innerHTML=CATS.map((c,i)=>`<div class="rng" style="grid-template-columns:1fr 130px"><span>${esc(c)}</span><input type="number" min="0" step="10" data-bud="${esc(c)}" value="${S.budgets[c]||""}" placeholder="0"></div>`).join("")+`<p class="hint">Total monthly budget: <b>${money(CATS.reduce((a,c)=>a+(S.budgets[c]||0),0))}</b></p>`;
+  if(document.activeElement.id!=="gRate")$("#gRate").value=S.goal;
+  if(document.activeElement.id!=="cName")$("#cName").value=S.circle;
+  $("#memList").innerHTML=S.members.map((m,i)=>`<div class="rng" style="grid-template-columns:1fr auto auto"><input value="${esc(m)}" data-mem="${i}"><span></span><button class="btn sm danger" data-rm="${i}" ${S.members.length<2?"disabled":""}>Remove</button></div>`).join("");
+}
+$("#budList").addEventListener("change",e=>{const c=e.target.dataset.bud;if(c){S.budgets[c]=Math.max(0,parseFloat(e.target.value)||0);render()}});
+$("#gRate").addEventListener("change",e=>{S.goal=Math.min(90,Math.max(0,parseFloat(e.target.value)||0));render()});
+$("#cName").addEventListener("change",e=>{S.circle=e.target.value.trim()||"Our Circle";render()});
+$("#memList").addEventListener("change",e=>{const i=e.target.dataset.mem;if(i==null)return;const old=S.members[i],nw=e.target.value.trim();if(!nw)return render();S.tx.forEach(t=>{if(t.member===old)t.member=nw});S.plan.forEach(p=>{if(p.owner===old)p.owner=nw});S.members[i]=nw;render()});
+$("#memList").addEventListener("click",e=>{const i=e.target.dataset.rm;if(i!=null&&S.members.length>1&&confirm("Remove this member? Their past entries are kept.")){S.members.splice(i,1);render()}});
+$("#addMem").onclick=()=>{const v=$("#newMem").value.trim();if(v&&!S.members.includes(v)){S.members.push(v);$("#newMem").value="";render()}};
+
+/* ---------- plan ---------- */
+function progress(a){
+  if(!a.cat||a.target==null)return null;
+  const st=stats();const cur=st.byCat[a.cat]||0;
+  return {cur,ok:cur<=a.target};
+}
+function renderPlan(st){
+  const rows=S.plan.map(a=>{
+    const p=progress(a);
+    const meas=p?`<span class="pill ${p.ok?"in":"bad"}">${p.ok?"Target met":"Over target"}</span><br><small>${esc(a.cat)}: ${money(p.cur)} now / ≤ ${money(a.target)}</small>`:`<small>${esc(a.metric||"Manual check")}</small>`;
+    return `<tr><td style="min-width:200px"><input data-pf="text" data-id="${a.id}" value="${esc(a.text)}"></td>
+      <td><select data-pf="owner" data-id="${a.id}">${S.members.map(m=>`<option ${m===a.owner?"selected":""}>${esc(m)}</option>`).join("")}</select></td>
+      <td><input type="date" data-pf="due" data-id="${a.id}" value="${esc(a.due)}"></td>
+      <td>${meas}</td>
+      <td><select data-pf="status" data-id="${a.id}">${["To do","In progress","Done"].map(s=>`<option ${s===a.status?"selected":""}>${s}</option>`).join("")}</select></td>
+      <td class="noprint"><button class="btn sm danger" data-pdel="${a.id}">Delete</button></td></tr>`;
+  }).join("");
+  const done=S.plan.filter(a=>a.status==="Done").length;
+  $("#planTbl").innerHTML=`<tr><th>Action</th><th>Owner</th><th>Deadline</th><th>Measured by</th><th>Status</th><th></th></tr>`+(rows||`<tr><td colspan="6" class="hint">No actions yet. Generate them from the dashboard gaps or add one manually.</td></tr>`)+(S.plan.length?`<tr><td colspan="6"><b>${done} of ${S.plan.length}</b> actions complete (${Math.round(done/S.plan.length*100)}%)</td></tr>`:"");
+}
+function genPlan(){
+  const st=stats(),g=gaps(st);let n=0;
+  const own=i=>S.members[i%S.members.length];
+  g.forEach((x,i)=>{
+    if(S.plan.some(p=>p.cat===x.cat&&p.status!=="Done"))return;
+    S.plan.push({id:uid(),text:`Bring ${x.cat} spending down by ${money(x.over)}`,owner:own(i),due:addDays(30),cat:x.cat,target:x.budget,status:"To do"});n++;
+  });
+  if(st.inc>0&&st.rate<S.goal&&!S.plan.some(p=>p.metric==="Savings rate"&&p.status!=="Done")){
+    S.plan.push({id:uid(),text:`Lift savings rate to ${S.goal}% (save ${money(st.inc*S.goal/100)} per month)`,owner:own(g.length),due:addDays(30),metric:"Savings rate",status:"To do"});n++;
+  }
+  if(!S.tx.length)alert("Add some ledger entries first so the plan is based on real numbers.");
+  else if(!n)alert("No new gaps found, or actions for them already exist.");
+  render();
+}
+$("#genPlan").onclick=genPlan;
+$("#addAct").onclick=()=>{S.plan.push({id:uid(),text:"New action",owner:S.members[0],due:addDays(14),metric:"Manual check",status:"To do"});render()};
+$("#planTbl").addEventListener("change",e=>{const f=e.target.dataset.pf,id=e.target.dataset.id;if(!f)return;const a=S.plan.find(x=>x.id===id);if(a){a[f]=e.target.value;render()}});
+$("#planTbl").addEventListener("click",e=>{const id=e.target.dataset.pdel;if(id&&confirm("Delete this action?")){S.plan=S.plan.filter(x=>x.id!==id);render()}});
+
+/* ---------- agenda ---------- */
+let timer=null,elapsed=0,cur=-1,running=false;
+function renderAgenda(st){
+  const A=S.agenda;
+  if(document.activeElement.id!=="aOut")$("#aOut").value=A.outcome;
+  if(document.activeElement.id!=="aMeasure")$("#aMeasure").value=A.measure;
+  $("#aDate").value=A.date;$("#aReached").value=A.reached;$("#driftN").textContent=A.drifts;
+  $("#aItems").innerHTML=`<tr><th>#</th><th>Item</th><th class="num">Min</th><th></th></tr>`+(A.items.map((it,i)=>`<tr><td>${i+1}</td><td>${esc(it.t)}</td><td class="num">${it.m}</td><td class="num noprint"><button class="btn sm danger" data-ai="${i}">×</button></td></tr>`).join("")||`<tr><td colspan="4" class="hint">No items yet.</td></tr>`);
+  $("#aTotal").textContent=A.items.reduce((a,i)=>a+i.m,0);
+  $("#parkList").innerHTML=A.parking.map((p,i)=>`<div class="chk"><span>• ${esc(p)}</span> <button class="btn sm ghost" data-pk="${i}">Remove</button></div>`).join("")||'<p class="hint">Empty.</p>';
+}
+function suggestAgenda(){
+  const A=S.agenda,st=stats(),g=gaps(st);
+  if(!A.outcome){
+    A.outcome=g[0]?`By the end of this meeting we will agree on specific actions to bring ${g[0].cat} spending back to ${money(g[0].budget)}.`:`By the end of this meeting we will confirm next month's budget and savings target.`;
+    A.measure=g[0]?"Owner + deadline for each action":"Budget numbers approved";
+  }
+  if(!A.items.length){
+    A.items=[{t:"Review dashboard figures (facts only)",m:5},{t:g[0]?`Root causes: ${g[0].cat}`:"Confirm budgets",m:10},{t:"Choose actions and assign owners",m:10},{t:"Confirm deadlines and how success is measured",m:5}];
+  }
+}
+$("#aOut").addEventListener("change",e=>{S.agenda.outcome=e.target.value;save();render()});
+$("#aMeasure").addEventListener("change",e=>{S.agenda.measure=e.target.value;save()});
+$("#aDate").addEventListener("change",e=>{S.agenda.date=e.target.value;save()});
+$("#aReached").addEventListener("change",e=>{S.agenda.reached=e.target.value;save()});
+$("#aiAdd").onclick=()=>{const t=$("#aiT").value.trim(),m=Math.max(1,parseInt($("#aiM").value)||5);if(!t)return;S.agenda.items.push({t,m});$("#aiT").value="";render()};
+$("#aItems").addEventListener("click",e=>{const i=e.target.dataset.ai;if(i!=null){S.agenda.items.splice(i,1);render()}});
+$("#parkAdd").onclick=()=>{const v=$("#parkIn").value.trim();if(v){S.agenda.parking.push(v);$("#parkIn").value="";render()}};
+$("#parkList").addEventListener("click",e=>{const i=e.target.dataset.pk;if(i!=null){S.agenda.parking.splice(i,1);render()}});
+$("#dAdd").onclick=()=>{const t=$("#dTxt").value.trim();if(!t)return;S.plan.push({id:uid(),text:t,owner:$("#dOwn").value||S.members[0],due:$("#dDue").value||addDays(14),metric:"Agreed in meeting",status:"To do"});$("#dTxt").value="";render();alert("Added to the Plan Builder.")};
+function fmt(s){return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
+function tick(){
+  elapsed++;const it=S.agenda.items[cur];$("#tmr").textContent=fmt(elapsed);
+  if(it&&elapsed>it.m*60)$("#tmr").classList.add("over");
+}
+function startItem(){
+  const it=S.agenda.items[cur];elapsed=0;$("#tmr").classList.remove("over");
+  $("#tmr").textContent=fmt(0);
+  $("#tmrItem").innerHTML=it?`Now: <b>${esc(it.t)}</b> (${it.m} min). Outcome: <i>${esc(S.agenda.outcome||"not set")}</i>`:"All items complete. Check whether the outcome was reached.";
+}
+$("#tStart").onclick=()=>{
+  if(!S.agenda.items.length){alert("Add at least one agenda item.");return}
+  if(running){clearInterval(timer);running=false;$("#tStart").textContent="Resume";return}
+  if(cur<0){cur=0;startItem()}
+  running=true;$("#tStart").textContent="Pause";timer=setInterval(tick,1000);
+};
+$("#tNext").onclick=()=>{if(cur<0)return;cur++;if(cur>=S.agenda.items.length){clearInterval(timer);running=false;$("#tStart").textContent="Start"}startItem()};
+$("#tReset").onclick=()=>{clearInterval(timer);running=false;cur=-1;elapsed=0;$("#tmr").textContent="00:00";$("#tmr").classList.remove("over");$("#tStart").textContent="Start";$("#tmrItem").textContent="Press start to begin the first item."};
+$("#drift").onclick=()=>{S.agenda.drifts++;save();$("#driftN").textContent=S.agenda.drifts;const b=$("#driftBox");b.style.display="block";b.innerHTML=`<b>Redirect:</b> "Does this help us reach: <i>${esc(S.agenda.outcome||"the outcome")}</i>?" If not, park it and return to the current item.`};
+
+/* ---------- what if ---------- */
+let wi={cuts:{},inc:0};
+function renderWhatIf(st){
+  const active=CATS.filter(c=>st.byCat[c]>0&&c!=="Savings");
+  if(document.activeElement.type!=="range")
+  $("#wiSliders").innerHTML=active.map(c=>`<div class="rng"><span>${esc(c)}</span><input type="range" min="0" max="50" value="${wi.cuts[c]||0}" data-wc="${esc(c)}" aria-label="Cut ${esc(c)}"><span id="wv-${CATS.indexOf(c)}">−${wi.cuts[c]||0}%</span></div>`).join("")||'<p class="hint">Add spending entries first.</p>';
+  calcWhatIf(st);
+}
+function calcWhatIf(st=stats()){
+  const cutAmt=CATS.reduce((a,c)=>a+(st.byCat[c]||0)*((wi.cuts[c]||0)/100),0);
+  const out=st.out-cutAmt, inc=st.inc*(1+wi.inc/100), net=inc-out, rate=inc>0?net/inc*100:0;
+  $("#wiIncV").textContent=(wi.inc>0?"+":"")+wi.inc+"%";
+  $("#wiOut").innerHTML=kpi("Projected spending",money(out),"Saves "+money(cutAmt)+" vs actual","brown")+kpi("Projected income",money(inc),"")+
+   kpi("Projected net",money(net),"Annualised: "+money(net*12),net<0?"bad":"gold")+kpi("Projected savings rate",rate.toFixed(1)+"%",rate>=S.goal?"Goal of "+S.goal+"% reached":"Goal "+S.goal+"%: short by "+(S.goal-rate).toFixed(1)+" pts",rate>=S.goal?"":"bad");
+}
+$("#wiSliders").addEventListener("input",e=>{const c=e.target.dataset.wc;if(!c)return;wi.cuts[c]=+e.target.value;const sp=e.target.nextElementSibling;sp.textContent="−"+e.target.value+"%";calcWhatIf()});
+$("#wiInc").addEventListener("input",e=>{wi.inc=+e.target.value;calcWhatIf()});
+$("#wiReset").onclick=()=>{wi={cuts:{},inc:0};$("#wiInc").value=0;render()};
+$("#wiPlan").onclick=()=>{
+  const st=stats();let n=0;
+  Object.entries(wi.cuts).filter(([c,p])=>p>0).forEach(([c,p],i)=>{
+    const t=Math.round((st.byCat[c]||0)*(1-p/100));
+    S.plan.push({id:uid(),text:`Cut ${c} spending by ${p}% (target ${money(t)})`,owner:S.members[i%S.members.length],due:addDays(30),cat:c,target:t,status:"To do"});n++;
+  });
+  if(!n)alert("Move at least one slider first.");else{render();alert(n+" action(s) added to the Plan.")}
+};
+
+/* ---------- report ---------- */
+function renderReport(st){
+  const g=gaps(st);
+  $("#reportBody").innerHTML=`
+  <div style="text-align:center;border-bottom:3px solid var(--gold);padding-bottom:8px;margin-bottom:12px">
+    <div lang="ar" style="font-size:26px;color:var(--b);direction:rtl">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+    <h2 style="font-size:28px;margin:0">${esc(S.circle)}: Circle Ledger Report</h2>
+    <div class="sub">${mLabel(S.month)} · Generated ${new Date().toLocaleDateString()}</div>
+  </div>
+  <h3>Headline measures</h3>
+  <table><tr><th>Measure</th><th class="num">Result</th></tr>
+   <tr><td>Income / contributions</td><td class="num">${money(st.inc)}</td></tr>
+   <tr><td>Spending</td><td class="num">${money(st.out)}</td></tr>
+   <tr><td>Net saved</td><td class="num">${money(st.net)}</td></tr>
+   <tr><td>Savings rate (goal ${S.goal}%)</td><td class="num">${st.rate.toFixed(1)}%</td></tr>
+   <tr><td>Categories inside budget</td><td class="num">${st.within} / ${st.budgeted.length}</td></tr>
+   <tr><td>Circle Health Score</td><td class="num">${st.score} / 100</td></tr></table>
+  <h3>Category results</h3>
+  <table><tr><th>Category</th><th class="num">Budget</th><th class="num">Actual</th><th class="num">Variance</th></tr>
+  ${CATS.filter(c=>S.budgets[c]||st.byCat[c]).map(c=>{const b=S.budgets[c]||0,a=st.byCat[c],v=b-a;return `<tr><td>${esc(c)}</td><td class="num">${money(b)}</td><td class="num">${money(a)}</td><td class="num" style="color:${v<0&&b?"var(--bad)":"var(--ok)"}">${b?(v>=0?"+":"−")+money(Math.abs(v)):"–"}</td></tr>`}).join("")}</table>
+  <h3>Plan status</h3>
+  <table><tr><th>Action</th><th>Owner</th><th>Due</th><th>Status</th></tr>${S.plan.map(a=>`<tr><td>${esc(a.text)}</td><td>${esc(a.owner)}</td><td>${esc(a.due)}</td><td>${esc(a.status)}</td></tr>`).join("")||'<tr><td colspan="4" class="hint">No actions yet.</td></tr>'}</table>
+  <h3>Meeting outcome</h3>
+  <p><b>Outcome:</b> ${esc(S.agenda.outcome||"Not set")}<br><b>Measured by:</b> ${esc(S.agenda.measure||"–")}<br><b>Reached:</b> ${esc(S.agenda.reached||"–")} · <b>Drift alerts:</b> ${S.agenda.drifts}</p>
+  <p class="hint" style="text-align:center;border-top:3px solid var(--gold);padding-top:8px;margin-top:16px"><b>Creed-to-Commerce™</b> · The Balanced Middle Path Academy, LLC</p>`;
+}
+$("#print").onclick=()=>{window.print()};
+function dl(name,txt,type){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([txt],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}
+$("#expCSV").onclick=()=>{const q=v=>'"'+String(v).replace(/"/g,'""')+'"';dl("circle-ledger.csv",["Date,Type,Member,Category,Amount,Note",...S.tx.map(t=>[t.date,t.type,q(t.member),q(t.cat),t.amt,q(t.note)].join(","))].join("\n"),"text/csv")};
+$("#expJSON").onclick=()=>dl("circle-ledger-backup.json",JSON.stringify(S,null,2),"application/json");
+$("#impJSON").addEventListener("change",e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!Array.isArray(d.tx))throw 0;S=Object.assign(blank(),d);render();alert("Backup restored.")}catch(x){alert("That file is not a valid backup.")}};r.readAsText(f)});
+
+/* ---------- global ---------- */
+function go(t){$$("nav button").forEach(b=>b.classList.toggle("on",b.dataset.t===t));$$("section.tab").forEach(s=>s.classList.toggle("on",s.id==="t-"+t));window.scrollTo({top:0})}
+$("#nav").addEventListener("click",e=>{if(e.target.dataset.t)go(e.target.dataset.t)});
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-go]");if(!b)return;
+  if(b.dataset.act==="gen"){genPlan()}
+  if(b.dataset.act==="agenda"){suggestAgenda();render()}
+  go(b.dataset.go);
+});
+$("#monthSel").onchange=e=>{S.month=e.target.value;render()};
+$("#curSel").onchange=e=>{S.cur=e.target.value;render()};
+$("#btnSample").onclick=()=>{if(S.tx.length&&!confirm("Replace current data with sample data?"))return;const c=S.cur;sample();S.cur=c;render()};
+$("#btnClear").onclick=()=>{if(confirm("Clear ALL data (entries, budgets, plan, agenda)? Consider backing up first.")){const c=S.cur;S=blank();S.cur=c;render()}};
+render();
+})();
+</script>
+</body>
+</html>
